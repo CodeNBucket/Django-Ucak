@@ -3,7 +3,7 @@ Projeyi çalıştırmak için:
 - cd Django-Ucak 
 - Bu aşamada Docker kurulmalı
 - docker-compose build
-- docker-compose up
+- docker-compose up -d
 - docker-compose exec web python manage.py migrate
 - docker-compose exec web python manage.py createsuperuser    -- Superuser takımları ve kullanıcıları oluşturmak için gerekli
 
