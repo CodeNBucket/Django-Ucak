@@ -16,19 +16,19 @@ Kapatmak istediğinizde:
   
 
 Proje Açıklaması:
-Hava Aracı Üretim Uygulaması'nda iki farklı takım türü var, Üretim Takımları ve Montaj Takımı
+Hava Aracı Üretim Uygulaması'nda iki farklı takım türü var, Üretim Takımları ve Montaj Takımı.
 
 Üretim Takımları -->Kanat Takımı, Gövde Takımı, Kuyruk Takımı, Aviyonik Takımı   
-Bu takımların amaçları farklı uçaklar için (TB2, TB3, AKINCI, KIZILELMA) parçalar üretmek
+Bu takımların amaçları farklı uçaklar için (TB2, TB3, AKINCI, KIZILELMA) parçalar üretmek.
 
 Montaj Takımı --> Montaj Takımı
-Montaj Takımının amacı üretilen parçaları birleştirip uçak yaratabilmek
+Montaj Takımının amacı üretilen parçaları birleştirip uçak yaratabilmek.
 
-Proje hem daha anlaşılır olsun diye hem de sonradan eklemelerin/güncellemelerin daha rahat olması bakımından bu ana öğeleri 5 farklı modele böldüm
+Proje hem daha anlaşılır olsun diye hem de sonradan eklemelerin/güncellemelerin daha rahat olması bakımından bu ana öğeleri 5 farklı modele böldüm.
 Personel-Takım-Uçak-Parça-Montaj
-İçerikleri resimler dosyasına eklediğim 'er_diyagramı'ndan görülebilir, kodu da ordaki ilişkileri baz alarak yazdım
+İçerikleri resimler dosyasına eklediğim 'er_diyagramı'ndan görülebilir, kodu da ordaki ilişkileri baz alarak yazdım.
 
-İstenilen bütün fonksyonaliteler çalışıyor ve yine bunlar resimler dosyasından görülebilir
+İstenilen bütün fonksyonaliteler çalışıyor ve yine bunlar resimler dosyasından görülebilir.
 
-Personel ve takım eklemek için Superuser oluşturulması ve admin panelinden atamaların yapılması gerekiyor, her bir kategori için farklı takım oluşturabilir, her takıma istenilen kadar personel eklenebilir
-Bu bilgilerle giriş yapılıp uygulama kullanılabilir
+Personel ve takım eklemek için Superuser oluşturulması ve admin panelinden atamaların yapılması gerekiyor, her bir kategori için farklı takım oluşturabilir, her takıma istenilen kadar personel eklenebilir.
+Bu bilgilerle giriş yapılıp uygulama kullanılabilir.
