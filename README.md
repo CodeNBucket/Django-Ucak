@@ -1,6 +1,6 @@
 Projeyi çalıştırmak için:
 - git clone https://github.com/CodeNBucket/Django-Ucak.git
-- cd Projem 
+- cd Django-Ucak 
 -- Docker kurulmalı
 - docker-compose build
 - docker-compose up
