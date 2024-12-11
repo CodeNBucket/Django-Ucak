@@ -30,4 +30,5 @@ Personel-Takım-Uçak-Parça-Montaj
 
 İstenilen bütün fonksyonaliteler çalışıyor ve yine bunlar resimler dosyasından görülebilir
 
-Personel ve takım eklemek için Superuser oluşturulması ve admin panelinden atamaların yapılması gerekiyor 
+Personel ve takım eklemek için Superuser oluşturulması ve admin panelinden atamaların yapılması gerekiyor, her bir kategori için farklı takım oluşturabilir, her takıma istenilen kadar personel eklenebilir
+Bu bilgilerle giriş yapılıp uygulama kullanılabilir
