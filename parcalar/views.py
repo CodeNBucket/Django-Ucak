@@ -1,13 +1,13 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Parca
 from ucaklar.models import Ucak
-from user.helpers import get_logged_in_user  # Login kontrolü için helper function
-from django.http import HttpResponseRedirect  # Redirect kontrolü için gerekli
+from user.helpers import get_logged_in_user  
+from django.http import HttpResponseRedirect  
 
 def parca_listesi(request):
     """Takıma ait parçaları listele."""
-    user = get_logged_in_user(request)  # Oturum kontrolü
-    if isinstance(user, HttpResponseRedirect):  # Eğer yönlendirme dönerse
+    user = get_logged_in_user(request) 
+    if isinstance(user, HttpResponseRedirect):  
         return user
 
     # Kullanıcının takımına ait parçalar
@@ -22,23 +22,23 @@ def parca_ekle(request):
 
     if request.method == 'POST':
         stok = request.POST['stok']
-        kategori = request.POST['kategori']  # Updated to kategori
+        kategori = request.POST['kategori']  
         isim = request.POST['isim']
 
-        # Parça türünü takım türüne göre belirle
+       
         takim_tipi = user.takim.takim_tipi
         if takim_tipi == 'URETIM':
             tur = request.POST['tur']
         else:
-            tur = user.takim.takim_tipi  # Montaj takımıysa türü sabit tut
+            tur = user.takim.takim_tipi  # Montaj takımıysa değiştirme, üretim yapamıyor
 
         # Parçayı ekle
         Parca.objects.create(kategori=kategori, tur=tur, takim=user.takim, stok=stok,isim=isim)
         return redirect('dashboard')
 
     return render(request, 'parcalar/parca_formu.html', {
-        'user': user,  # Kullanıcı bilgilerini şablona geçir
-        'ucaklar': Ucak.objects.all()  # Uçak seçim listesi
+        'user': user, 
+        'ucaklar': Ucak.objects.all() 
     })
 
 def parca_guncelle(request, id):
@@ -49,17 +49,16 @@ def parca_guncelle(request, id):
 
     parca = get_object_or_404(Parca, id=id)
 
-    # Takım yetkisi kontrolü
+    # Takım yetkisini kontrol ediyoruz
     if parca.takim != user.takim:
         return render(request, 'error.html', {'error': 'Bu parçayı güncelleme yetkiniz yok.'})
 
-    # Eğer kullanıcı 'URETIM' takımı ise tür sabit ve gösterilir
+    
     if request.method == 'POST':
         stok = request.POST['stok']
         isim=request.POST['isim']
-        kategori = request.POST['kategori']  # Updated to kategori
-
-        # Güncelleme işlemi
+        kategori = request.POST['kategori'] 
+        
         parca.kategori = kategori
         parca.stok = stok
         parca.isim= isim
@@ -76,7 +75,7 @@ def parca_sil(request, id):
 
     parca = get_object_or_404(Parca, id=id)
 
-    # Takım yetkisi kontrolü
+   
     if parca.takim != user.takim:
         return render(request, 'error.html', {'error': 'Bu parçayı silme yetkiniz yok.'})
 

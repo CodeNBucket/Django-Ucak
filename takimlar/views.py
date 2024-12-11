@@ -1,10 +1,22 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from django.http import HttpResponseRedirect
+
+from user.helpers import get_logged_in_user
 from .models import Takim
 
 # Takım Listesi
 def takim_listesi(request):
-    takimlar = Takim.objects.all()
-    return render(request, 'takimlar/takim_listesi.html', {'takimlar': takimlar})
+    user = get_logged_in_user(request) # Her bir login olunması gereken her bir def'in içinde manuel olarak authenticationı test ediyorum
+    if isinstance(user, HttpResponseRedirect):
+        return user
+
+   # Takım üyelerini çek
+    takim_uyeleri = user.takim.uyeler.all()
+
+    return render(request, 'takimlar/takim_listesi.html', {
+        'takim_uyeleri': takim_uyeleri,
+        'user': user,
+    })
 
 # Takım Ekle
 def takim_ekle(request):
@@ -32,3 +44,4 @@ def takim_sil(request, id):
         takim.delete()
         return redirect('takim_listesi')
     return render(request, 'takimlar/takim_sil_onay.html', {'takim': takim})
+

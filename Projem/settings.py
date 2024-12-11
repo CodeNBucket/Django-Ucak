@@ -79,14 +79,14 @@ WSGI_APPLICATION = 'Projem.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
-DATABASES = {
+DATABASES = { # Database'i PostgreSQL olarak ayarladım
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'hava_araci_db',  # PostgreSQL'de oluşturduğunuz veritabanı adı
-        'USER': 'postgres',  # PostgreSQL kullanıcı adı
-        'PASSWORD': '123',  # PostgreSQL kullanıcı şifresi
-        'HOST': 'localhost',  # Eğer uzak bir sunucu kullanıyorsanız IP adresini buraya yazın
-        'PORT': '5432',  # Varsayılan PostgreSQL portu
+        'NAME': 'hava_araci_db',  
+        'USER': 'postgres',  #
+        'PASSWORD': '123',  
+        'HOST': 'db',  
+        'PORT': '5432',  
     }
 }
 

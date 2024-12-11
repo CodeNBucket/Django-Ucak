@@ -43,7 +43,7 @@ def ucak_ekle(request):
         # Seçilen parçalarla stok kontrolü yap
         for part_id in selected_parts:
             part = Parca.objects.get(id=part_id)
-            if part.kategori == kategori:  # Seçilen parça kategorisiyle eşleşiyor mu?
+            if part.kategori == kategori:  # Seçilen parça kategorisiyle eşleşiyor mu kontrol ediyor
                 part_counts[part.tur] += 1
 
         # Eksik parça kontrolü

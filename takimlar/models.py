@@ -25,7 +25,7 @@ class Takim(models.Model):
 
     def save(self, *args, **kwargs):
         """Override save to clean data before saving."""
-        self.full_clean()  # Ensure that custom validation is called before saving
+        self.full_clean()  
         super().save(*args, **kwargs)
 
     def __str__(self):

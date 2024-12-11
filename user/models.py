@@ -8,7 +8,7 @@ class User(models.Model):
     takim = models.ForeignKey(Takim, on_delete=models.CASCADE, related_name="uyeler")  # ForeignKey field
 
     def save(self, *args, **kwargs):
-        # Hash the password only if it's not already hashed
+        # şifre hashli değilse burda hashleniyor
         if not self.password.startswith('pbkdf2_sha256$'):
             from django.contrib.auth.hashers import make_password
             self.password = make_password(self.password)

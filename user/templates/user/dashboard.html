@@ -1,43 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <script>
-        function toggleTeamMembers() {
-            const modal = document.getElementById('team-members-modal');
-            modal.classList.toggle('hidden');
-        }
-    </script>
-</head>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Dashboard</title>
+        <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    </head>
 <body class="bg-gray-100 h-screen flex items-center justify-center">
-    <div class="bg-white p-8 rounded-lg shadow-md w-3/4">
-        
-
-        <h1 class="text-3xl font-semibold mb-6 text-center text-gray-800">Hoş geldiniz, {{ user.username }}</h1>
-        <p class="text-lg mb-8 text-center text-gray-600">Takımınız: {{ user.takim.isim }}</p>
-
-        
-        <div id="team-members-modal" class="fixed inset-0 bg-gray-800 bg-opacity-50 hidden flex items-center justify-center z-50">
-            <div class="bg-white w-1/2 max-h-3/4 overflow-y-auto p-6 rounded-lg shadow-lg">
-                <div class="flex justify-between items-center mb-4">
-                    <h3 class="text-xl font-medium text-gray-700">Team Members</h3>
-                    <button onclick="toggleTeamMembers()" class="text-gray-500 hover:text-gray-800 focus:outline-none">
-                        &times; <!-- Close Button -->
-                    </button>
-                </div>
-                <ul class="space-y-2">
-                    {% for member in takim_uyeleri %}
-                        <li class="text-gray-600">{{ member.username }}</li>
-                    {% empty %}
-                        <li class="text-gray-600">No members found.</li>
-                    {% endfor %}
-                </ul>
+    <body class="bg-gray-100 h-screen flex items-center justify-center">
+        <div class="bg-white p-8 rounded-lg shadow-md w-3/4">
+            <h1 class="text-3xl font-semibold mb-6 text-center text-gray-800">Hoş geldiniz, {{ user.username }}</h1>
+            <p class="text-lg mb-8 text-center text-gray-600">Takımınız: {{ user.takim.isim }}</p>
+            <!-- Takım Üyeleri -->
+            <div class="text-center mb-6">
+                <a href="{% url 'takim_listesi' %}" class="bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600 focus:outline-none">
+                    Takım Üyeleri
+                </a>
             </div>
-        </div>
-
+            
+            <div class="flex justify-center gap-4 mb-6">
+                {% if user.takim.takim_tipi == 'MONTAJ' %}
+                <a href="{% url 'ucak_ekle' %}" class="bg-green-500 text-white p-2 rounded-md hover:bg-green-600 focus:outline-none">
+                    Yeni Uçak Ekle
+                </a>
+                {% endif %}
+    
+                {% if user.takim.takim_tipi == 'MONTAJ' %}
+                <a href="{% url 'ucak_listesi' %}" class="bg-green-500 text-white p-2 rounded-md hover:bg-green-600 focus:outline-none">
+                    Üretilen Uçakları Görüntüle
+                </a>
+                {% endif %}
+                
+            </div>
+            
         <!-- Kendi takımına ait parçalar -->
         {% if can_edit_parts %}
         <div class="mb-6">
@@ -54,7 +49,7 @@
                 <tbody>
                     {% for parca in parcalar %}
                         <tr>
-                            <td class="py-2 px-4 border-b">{{ parca.isim }}</td> <!-- Parça ismini buraya ekliyoruz -->
+                            <td class="py-2 px-4 border-b">{{ parca.isim }}</td> 
                             <td class="py-2 px-4 border-b">{{ parca.kategori }}-{{ parca.get_tur_display }}</td>
                             <td class="py-2 px-4 border-b">{{ parca.stok }}</td>
                             <td class="py-2 px-4 border-b">

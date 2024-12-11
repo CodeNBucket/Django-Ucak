@@ -1,31 +1,40 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Takımlar</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Team Members</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
-<body>
-    <h1>Takım Listesi</h1>
-    <a href="{% url 'takim_ekle' %}">Yeni Takım Ekle</a>
-    <table>
-        <thead>
-            <tr>
-                <th>İsim</th>
-                <th>Tip</th>
-                <th>İşlemler</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for takim in takimlar %}
-            <tr>
-                <td>{{ takim.isim }}</td>
-                <td>{{ takim.get_takim_tipi_display }}</td>
-                <td>
-                    <a href="{% url 'takim_guncelle' takim.id %}">Güncelle</a>
-                    <a href="{% url 'takim_sil' takim.id %}">Sil</a>
-                </td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+<body class="bg-gray-100 h-screen flex items-center justify-center">
+
+    <div class="bg-white p-8 rounded-lg shadow-md w-3/4">
+        <h1 class="text-3xl font-semibold mb-6 text-center text-gray-800">Team Members - {{ user.takim.isim }}</h1>
+
+        <!-- Takım Üyeleri -->
+        <table class="min-w-full bg-white border border-gray-200">
+            <thead>
+                <tr>
+                    <th class="py-2 px-4 border-b text-left">Username</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for member in takim_uyeleri %}
+                    <tr>
+                        <td class="py-2 px-4 border-b">{{ member.username }}</td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="3" class="py-2 px-4 border-b text-center">Takım Üyesi Bulunamadı</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <div class="text-center mt-6">
+            <a href="{% url 'dashboard' %}" class="bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600 focus:outline-none">Geri Dön</a>
+        </div>
+    </div>
+
 </body>
 </html>

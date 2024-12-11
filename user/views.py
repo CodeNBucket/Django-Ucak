@@ -9,30 +9,30 @@ from parcalar.models import Parca
 from takimlar.models import Takim
 
 def login_view(request):
-    # Eğer kullanıcı zaten giriş yaptıysa, login sayfasına gitmemelidir
+    # Eğer kullanıcı zaten giriş yaptıysa, login sayfasına gidemez
     if 'user_id' in request.session:
         return redirect('dashboard')  # Giriş yaptıysa dashboard'a yönlendir
 
     if request.method == 'POST':
-        username = request.POST['username'].strip()  # Whitespace'leri temizle
+        username = request.POST['username'].strip()  
         password = request.POST['password']
 
         print(f"Attempting to log in with username: '{username}'")
 
-        # Kullanıcıyı veritabanında ara
+        # Kullanıcıyı veritabanında arıyor
         try:
             user = User.objects.get(username__iexact=username)
         except User.DoesNotExist:
             print("No user found with that username")
             return render(request, 'user/login.html', {'error': 'User does not exist'})
 
-        # Parolayı kontrol et
+        # Parolayı kontrol ediyor
         if check_password(password, user.password):
             print("Password matched successfully!")
 
-            # Kullanıcıyı giriş yapmış olarak işaretle
-            request.session['user_id'] = user.id  # Custom User için session'ı manuel olarak sakla
-            return redirect('dashboard')  # Başarıyla giriş yaptıysa dashboard'a yönlendir
+            # Kullanıcının giriş yaptığını kaydettim
+            request.session['user_id'] = user.id  # Custom User için session'ı manuel olarak sakladım
+            return redirect('dashboard')  # Başarıyla giriş yaptıysa dashboard'a yönlendiriyor
         else:
             print("Password does not match")
             return render(request, 'user/login.html', {'error': 'Invalid username or password'})
@@ -45,27 +45,27 @@ def dashboard_view(request):
     if isinstance(user, HttpResponseRedirect):
         return user
 
-    # Fetching the user's team's parts
+   # Takım üyelerini ve parcaları çekiyor
     parcalar = Parca.objects.filter(takim=user.takim)
-    takim_uyeleri = user.takim.uyeler.all()  # Takım üyelerini al
+    takim_uyeleri = user.takim.uyeler.all()  #
 
-    # Fetching all parts and categorizing them by team
+    #
     all_parcalar = Parca.objects.all()
     kategorize_parcalar = {}
 
     for parca in all_parcalar:
         takim = parca.takim
-        # Exclude the user's team
+        # Diğer takımların parçalarını göstermesi için kendi takımını almıyor
         if takim == user.takim:
             continue
         if takim not in kategorize_parcalar:
             kategorize_parcalar[takim] = []
         kategorize_parcalar[takim].append(parca)
 
-    # If the user's team is 'URETIM', allow editing and adding parts
+    # Takım URETIM takımıysa parca düzenlemesine izin veriyor, html'de bunu URETIM ile MONTAJ takımlarına ayrı ayrı componentlar göstermek için kullandım 
     can_edit_parts = user.takim.takim_tipi == 'URETIM'
 
-    # Now pass 'kategorize_parcalar', 'parcalar', 'user', 'can_edit_parts' to the template
+    # Kullanılması için dashboard'a yolluyor
     return render(request, 'user/dashboard.html', {
         'user': user,
         'parcalar': parcalar,
